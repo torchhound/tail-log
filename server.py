@@ -3,7 +3,7 @@ from subprocess import check_output
 from functools import wraps
 
 app = Flask(__name__)
-app.config.from_object('server.config')
+app.config.from_pyfile('server.config')
 
 """Auth snippet(check_auth, authenticate, and requires_auth) copied from http://flask.pocoo.org/snippets/8/"""
 

@@ -9,7 +9,7 @@ app.config.from_pyfile('server.config')
 
 def check_auth(username, password):
     """This function is called to check if a username /password combination is valid."""
-    return username == WEB_USERNAME and password == WEB_PASSWORD
+    return username == app.config['WEB_USERNAME'] and password == app.config['WEB_PASSWORD']
 
 def authenticate():
     """Sends a 401 response that enables basic auth"""
@@ -27,12 +27,12 @@ def requires_auth(f):
         return f(*args, **kwargs)
     return decorated
 
-@app.route("/", methods=["GET"])
+@app.route("/")
 @requires_auth
 def index():
 	"""Returns tail of log"""
-	output = check_output('tail -f' + LOG_LOCATION, shell=True)
+	output = check_output('tail -f' + app.config['LOG_LOCATION'], shell=True)
 	return render_template("index.html", output=output)
 
 if __name__ == '__main__':
-    app.run()
+	app.run(host=app.config['WEB_HOST'], port=app.config['WEB_PORT'])

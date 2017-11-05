@@ -31,7 +31,7 @@ def requires_auth(f):
 @requires_auth
 def index():
 	"""Returns tail of log"""
-	output = check_output('tail -f' + app.config['LOG_LOCATION'], shell=True)
+	output = check_output('tail ' + app.config['LOG_LOCATION'], shell=True)
 	return render_template("index.html", output=output)
 
 if __name__ == '__main__':

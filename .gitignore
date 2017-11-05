@@ -1,2 +1,3 @@
 *.pyc
 *.*.pyc
+tests/log.txt
